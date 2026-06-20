@@ -77,8 +77,18 @@ $commandes = $pdo->query("
 <div class="wrapper">
 
     <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">🚌 Tran<span>co</span></div>
+    <aside class="sidebar" id="admin-sidebar">
+        <?php
+            $logo_new = __DIR__ . '/../assets/css/img/Capture d’écran 2026-06-07 175009.png';
+            
+            if (file_exists($logo_new)):
+        ?>
+            <div class="sidebar-logo"><img src="../assets/css/img/Capture d’écran 2026-06-07 175009.png" alt="Transco" class="logo-img"></div>
+        <?php elseif (file_exists($logo_old)): ?>
+            <div class="sidebar-logo"><img src="../assets/img/transco_logo.png" alt="Transco" class="logo-img"></div>
+        <?php else: ?>
+            <div class="sidebar-logo">🚌 Tran<span class="brand-sco">SCO</span></div>
+        <?php endif; ?>
         <div class="sidebar-user">
             <strong><?= htmlspecialchars($_SESSION['email']) ?></strong>
             <span class="badge badge-admin">Admin</span>
@@ -99,9 +109,16 @@ $commandes = $pdo->query("
         </div>
     </aside>
 
+    <div class="sidebar-overlay" data-sidebar-overlay></div>
+
     <!-- Main -->
     <main class="main-content">
         <div class="topbar">
+            <button type="button" class="sidebar-toggle" aria-label="Ouvrir le menu" aria-controls="admin-sidebar" aria-expanded="false" data-sidebar-toggle>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <h1>Vue d'ensemble</h1>
             <span class="badge badge-admin">Administrateur</span>
         </div>
@@ -208,5 +225,6 @@ $commandes = $pdo->query("
         </div>
     </main>
 </div>
+<script src="../assets/js/sidebar.js"></script>
 </body>
 </html>

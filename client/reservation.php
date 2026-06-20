@@ -118,7 +118,7 @@ $billets = $billets->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Billets — Tranco</title>
+    <title>Mes Billets — Transco</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .billet-card {
@@ -146,7 +146,7 @@ $billets = $billets->fetchAll();
         .billet-trajet { font-weight: 700; font-size: 1rem; }
         .billet-meta   { font-size: .8rem; color: var(--c-muted); }
         .siege-badge {
-            background: linear-gradient(135deg, var(--c-accent), var(--c-accent2));
+            background: var(--c-accent);
             color: #fff;
             font-family: var(--font-head);
             font-size: 1.1rem;
@@ -155,6 +155,7 @@ $billets = $billets->fetchAll();
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(1,121,236,.18);
         }
     </style>
 </head>
@@ -162,7 +163,17 @@ $billets = $billets->fetchAll();
 <div class="wrapper">
 
     <aside class="sidebar">
-        <div class="sidebar-logo">🚌 Tran<span>co</span></div>
+        <?php
+            $logo_new = __DIR__ . '/../assets/css/img/Capture d’écran 2026-06-07 175009.png';
+            $logo_old = __DIR__ . '/../assets/img/transco_logo.png';
+            if (file_exists($logo_new)):
+        ?>
+            <div class="sidebar-logo"><img src="../assets/css/img/Capture d’écran 2026-06-07 175009.png" alt="Transco" class="logo-img"></div>
+        <?php elseif (file_exists($logo_old)): ?>
+            <div class="sidebar-logo"><img src="../assets/img/transco_logo.png" alt="Transco" class="logo-img"></div>
+        <?php else: ?>
+            <div class="sidebar-logo">🚌 Tran<span class="brand-sco">SCO</span></div>
+        <?php endif; ?>
         <div class="sidebar-user">
             <strong><?= htmlspecialchars($client['nom'] . ' ' . $client['postnom']) ?></strong>
             <span class="badge badge-client">Client</span>
@@ -360,5 +371,6 @@ $billets = $billets->fetchAll();
 
     </main>
 </div>
+<script src="../assets/js/sidebar.js"></script>
 </body>
 </html>

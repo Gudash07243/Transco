@@ -75,7 +75,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="auth-card" style="max-width:500px">
     <div class="auth-logo">
-        <div class="logo-mark">🚌 Tran<span>Sco</span></div>
+        <?php
+            $logo_new = __DIR__ . '/../assets/css/img/Capture d’écran 2026-06-07 175009.png';
+            $logo_old = __DIR__ . '/../assets/img/transco_logo.png';
+            if (file_exists($logo_new)):
+        ?>
+            <div class="logo-mark"><img src="../assets/css/img/Capture d’écran 2026-06-07 175009.png" alt="Transco" class="logo-img"></div>
+        <?php elseif (file_exists($logo_old)): ?>
+            <div class="logo-mark"><img src="../assets/img/transco_logo.png" alt="Transco" class="logo-img"></div>
+        <?php else: ?>
+            <div class="logo-mark">🚌 Tran<span class="brand-sco">SCO</span></div>
+        <?php endif; ?>
         <p>Plateforme de gestion de transport</p>
     </div>
 

@@ -128,7 +128,17 @@ $voyages = $pdo->query("
 <div class="wrapper">
 
     <aside class="sidebar">
-        <div class="sidebar-logo">🚌 Tran<span>co</span></div>
+        <?php
+            $logo_new = __DIR__ . '/../assets/css/img/Capture d’écran 2026-06-07 175009.png';
+            $logo_old = __DIR__ . '/../assets/img/transco_logo.png';
+            if (file_exists($logo_new)):
+        ?>
+            <div class="sidebar-logo"><img src="../assets/css/img/Capture d’écran 2026-06-07 175009.png" alt="Transco" class="logo-img"></div>
+        <?php elseif (file_exists($logo_old)): ?>
+            <div class="sidebar-logo"><img src="../assets/img/transco_logo.png" alt="Transco" class="logo-img"></div>
+        <?php else: ?>
+            <div class="sidebar-logo">🚌 Tran<span class="brand-sco">SCO</span></div>
+        <?php endif; ?>
         <div class="sidebar-user">
             <strong><?= htmlspecialchars($_SESSION['email']) ?></strong>
             <span class="badge badge-admin">Admin</span>
@@ -336,6 +346,7 @@ $voyages = $pdo->query("
 
     </main>
 </div>
+<script src="../assets/js/sidebar.js"></script>
 
 <script>
 function showTab(name) {
