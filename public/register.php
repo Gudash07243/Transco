@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="telephone">Téléphone</label>
             <input type="text" id="telephone" name="telephone"
                    value="<?= htmlspecialchars($_POST['telephone'] ?? '') ?>"
-                   placeholder="+243 812 345 678" required>
+                   placeholder="+243 XXX XXX XXX" required>
         </div>
 
         <div class="form-group">

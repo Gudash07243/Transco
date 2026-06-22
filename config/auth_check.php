@@ -12,6 +12,22 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 /**
+ * Empêche le navigateur de mettre en cache les pages authentifiées.
+ * Cela évite qu'un bouton "retour" affiche une ancienne page après déconnexion.
+ */
+function sendNoCacheHeaders(): void {
+    if (headers_sent()) {
+        return;
+    }
+
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, private');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+}
+
+sendNoCacheHeaders();
+
+/**
  * Vérifie que l'utilisateur est connecté.
  * Si non, redirige vers la page de connexion.
  */
@@ -90,7 +106,16 @@ function logout(): void {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+
+    // Vider les données de session
     $_SESSION = [];
+
+    // Supprimer aussi le cookie de session côté navigateur
+    if (ini_get('session.use_cookies')) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+    }
+
     session_destroy();
     header('Location: ' . getBaseUrl() . '/public/login.php');
     exit;
